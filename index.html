@@ -1,499 +1,231 @@
-: <!DOCTYPE html>
-
-<html lang="pt-pt">
-
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Portabilidade Troco - Aceda seus Valores e Refinancie</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <style>
-
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
-
-        
-
-        body { font-family: 'Inter', sans-serif; }
-
-
-
-        .gradient-bg {
-
-            background: radial-gradient(circle at top right, #1e40af, #1e3a8a);
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capital - Gestão de Crédito</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#eab308',
+              hover: '#ca8a04',
+              dark: '#0f0f10',
+              card: '#18181b',
+              border: '#27272a',
+              input: '#27272a'
+            }
+          }
         }
-
-        
-
-        .pulse-premium {
-
-            animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
-
-        }
-
-
-
-        @keyframes pulse-ring {
-
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-
-            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
-
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-
-        }
-
-
-
-        .floating {
-
-            animation: floating 3s ease-in-out infinite;
-
-        }
-
-
-
-        @keyframes floating {
-
-            0% { transform: translateY(0px); }
-
-            50% { transform: translateY(-10px); }
-
-            100% { transform: translateY(0px); }
-
-        }
-
-    </style>
-
+      }
+    }
+  </script>
 </head>
+<body class="bg-brand-dark text-gray-200 font-sans min-h-screen flex flex-col md:flex-row antialiased selection:bg-brand-gold selection:text-black">
 
-<body class="bg-slate-50 text-slate-900 leading-tight">
+  <!-- Header Mobile (visível apenas em telas pequenas) -->
+  <header class="md:hidden bg-brand-card border-b border-brand-border p-4 flex items-center justify-between sticky top-0 z-50">
+    <div class="flex items-center space-x-3">
+      <div class="w-8 h-8 bg-brand-gold rounded-lg flex items-center justify-center text-black font-extrabold shadow-md shadow-brand-gold/20">C</div>
+      <span class="font-bold text-lg text-white">Capital</span>
+    </div>
+    <button onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')" class="p-2 text-gray-400 hover:text-white rounded-lg focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </button>
+  </header>
 
-
-
-    <!-- Navegação -->
-
-    <nav class="bg-white border-b sticky top-0 z-50 shadow-sm">
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-            <div class="flex justify-between h-16 items-center">
-
-                <div class="flex items-center gap-2">
-
-                    <div class="bg-blue-700 p-1.5 rounded-lg">
-
-                        <i class="fas fa-hand-holding-dollar text-white text-xl"></i>
-
-                    </div>
-
-                    <span class="font-black text-lg tracking-tighter text-blue-900 uppercase">Portabilidade<span class="text-blue-600">Troco</span></span>
-
-                </div>
-
-                 <a href="#" 
-
-                   onclick="handleDownload(event)"
-
-                   class="dl-link bg-blue-700 text-white px-5 py-2.5 rounded-full font-extrabold hover:bg-blue-800 transition-all text-xs shadow-lg shadow-blue-200">
-
-                    INSTALAR
-
-                </a>
-
-            </div>
-
+  <!-- Sidebar / Menu Lateral -->
+  <aside id="sidebar" class="fixed md:static inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out z-40 w-64 bg-brand-card border-r border-brand-border p-5 flex flex-col justify-between shrink-0 h-screen md:h-auto overflow-y-auto">
+    <div>
+      <!-- Logo (Desktop) -->
+      <div class="hidden md:flex items-center space-x-3 mb-8 px-2">
+        <div class="w-9 h-9 bg-brand-gold rounded-xl flex items-center justify-center text-black font-extrabold text-xl shadow-lg shadow-brand-gold/10">C</div>
+        <div>
+          <h1 class="font-bold text-lg leading-none text-white tracking-tight">Capital</h1>
+          <span class="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">Gestão de Crédito</span>
         </div>
+      </div>
 
-    </nav>
+      <!-- Navegação -->
+      <nav class="space-y-1.5">
+        <a href="#" class="flex items-center space-x-3 px-3.5 py-2.5 rounded-xl bg-brand-gold/10 text-brand-gold font-medium border border-brand-gold/20 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+          <span>Visão geral</span>
+        </a>
+        <a href="#" class="flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-brand-border/60 hover:text-white transition group">
+          <svg class="w-5 h-5 text-gray-500 group-hover:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+          <span>Clientes</span>
+        </a>
+        <a href="#" class="flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-brand-border/60 hover:text-white transition group">
+          <svg class="w-5 h-5 text-gray-500 group-hover:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <span>Empréstimos</span>
+        </a>
+        <a href="#" class="flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-brand-border/60 hover:text-white transition group">
+          <svg class="w-5 h-5 text-gray-500 group-hover:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          <span>Cobranças</span>
+        </a>
+        <a href="#" class="flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-brand-border/60 hover:text-white transition group">
+          <svg class="w-5 h-5 text-gray-500 group-hover:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+          <span>Relatórios</span>
+        </a>
+      </nav>
+    </div>
 
-
-
-    <!-- Hero Section -->
-
-    <header class="gradient-bg text-white pt-12 pb-20 px-4 relative overflow-hidden">
-
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-
-            <i class="fas fa-coins text-[200px] absolute -top-10 -left-10 rotate-12"></i>
-
+    <!-- Usuário / Rodapé Sidebar -->
+    <div class="pt-4 mt-6 border-t border-brand-border flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-full bg-brand-border flex items-center justify-center font-bold text-white text-xs border border-gray-700">L</div>
+        <div class="text-xs">
+          <p class="font-semibold text-white leading-tight">Lucas</p>
+          <p class="text-gray-400">lucas@email.com</p>
         </div>
-
-
-
-        <div class="max-w-4xl mx-auto text-center relative z-10">
-
-            <div class="inline-flex items-center gap-2 bg-yellow-400 text-blue-900 font-bold px-4 py-1.5 rounded-full mb-8 text-xs uppercase tracking-wider shadow-xl">
-
-                <span class="relative flex h-2 w-2">
-
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-600 opacity-75"></span>
-
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-700"></span>
-
-                </span>
-
-                Atualizado 2026: Sistema Liberado
-
-            </div>
-
-            
-
-            <h1 class="text-4xl md:text-7xl font-black mb-6 tracking-tighter">
-
-                REABERTO: <br>
-
-                <span class="text-yellow-400">RECEBA SEU TROCO</span> DA PORTABILIDADE
-
-            </h1>
-
-            
-
-            <p class="text-lg md:text-xl mb-12 text-blue-100 max-w-2xl mx-auto font-medium leading-relaxed opacity-90">
-
-                O aplicativo oficial para consultar valores retidos, solicitar novos saques e reduzir parcelas do seu consignado. Tudo em um só clique.
-
-            </p>
-
-            
-
-            <div class="flex flex-col items-center">
-
-                <!-- BOTÃO DE DOWNLOAD PRINCIPAL -->
-
-                <a id="main-download-btn"
-
-                   href="#" 
-
-                   onclick="handleDownload(event)"
-
-                   class="dl-link pulse-premium group bg-green-500 hover:bg-green-600 text-white w-full max-w-md py-6 px-8 rounded-2xl shadow-[0_20px_50px_rgba(34,197,94,0.4)] transition-all transform hover:scale-[1.02] flex flex-col items-center no-underline">
-
-                    
-
-                    <div id="btn-content" class="flex flex-col items-center">
-
-                        <span class="text-xs mb-2 font-bold opacity-80 uppercase tracking-widest">Inicie a Instalação Automática</span>
-
-                        <div class="flex items-center gap-4 text-2xl md:text-3xl font-black">
-
-                            <i class="fas fa-download animate-bounce"></i>
-
-                            BAIXAR APP AGORA
-
-                        </div>
-
-                    </div>
-
-
-
-                    <div id="btn-loading" class="hidden flex-col items-center py-2">
-
-                        <i class="fas fa-circle-notch animate-spin text-3xl mb-2"></i>
-
-                        <span class="font-bold text-lg">Iniciando download...</span>
-
-                    </div>
-
-                </a>
-
-
-
-                <div id="download-message" class="hidden mt-6 bg-white/10 backdrop-blur-md p-4 rounded-xl text-sm border border-white/20">
-
-                    <p class="font-bold text-yellow-300"><i class="fas fa-info-circle mr-2"></i> O download começou!</p>
-
-                    <p class="opacity-80">Se não iniciar, <span class="underline cursor-pointer" onclick="handleDownload(event)">clique aqui novamente</span>.</p>
-
-                </div>
-
-
-
-                <div class="grid grid-cols-3 gap-8 mt-12 text-blue-200 text-xs md:text-sm font-bold tracking-tight uppercase">
-
-                    <div class="flex flex-col items-center gap-2">
-
-                        <i class="fas fa-shield-check text-green-400 text-xl"></i>
-
-                        100% SEGURO
-
-                    </div>
-
-                    <div class="flex flex-col items-center gap-2 border-x border-white/10 px-4">
-
-                        <i class="fas fa-bolt text-yellow-400 text-xl"></i>
-
-                        SAQUE RÁPIDO
-
-                    </div>
-
-                    <div class="flex flex-col items-center gap-2">
-
-                        <i class="fas fa-user-check text-blue-400 text-xl"></i>
-
-                        VERIFICADO
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
+      </div>
+      <button class="p-1.5 text-gray-400 hover:text-white hover:bg-brand-border rounded-lg transition" title="Sair">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Conteúdo Principal -->
+  <main class="flex-1 p-4 md:p-8 overflow-y-auto max-w-7xl mx-auto w-full">
+    <!-- Header Principal -->
+    <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <div>
+        <span class="text-xs text-brand-gold font-semibold uppercase tracking-wider">Painel Administrativo</span>
+        <h2 class="text-2xl md:text-3xl font-extrabold text-white mt-0.5 tracking-tight">Bom trabalho, Lucas</h2>
+        <p class="text-sm text-gray-400 mt-1">Acompanhe o capital em circulação e as cobranças programadas para hoje.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button class="px-4 py-2.5 bg-brand-card hover:bg-brand-border border border-brand-border text-white rounded-xl text-sm font-medium transition flex items-center gap-2 shadow-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+          <span>Novo cliente</span>
+        </button>
+        <button class="px-4 py-2.5 bg-brand-gold hover:bg-brand-hover text-black rounded-xl text-sm font-bold transition flex items-center gap-2 shadow-lg shadow-brand-gold/10">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+          <span>Novo empréstimo</span>
+        </button>
+      </div>
     </header>
 
-
-
-    <!-- Seção de Benefícios -->
-
-    <section class="py-20 max-w-7xl mx-auto px-4">
-
-        <div class="text-center mb-16">
-
-            <h2 class="text-3xl md:text-4xl font-black text-blue-950 uppercase tracking-tighter">Funcionalidades do Aplicativo</h2>
-
-            <div class="h-1.5 w-20 bg-blue-600 mx-auto mt-4 rounded-full"></div>
-
+    <!-- Grid de Métricas -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      
+      <!-- Card 1 -->
+      <div class="bg-brand-card p-5 rounded-2xl border border-brand-border hover:border-gray-700 transition relative overflow-hidden group">
+        <div class="flex items-center justify-between">
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Capital Emprestado</p>
+          <div class="p-2 bg-blue-500/10 text-blue-400 rounded-lg">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+          </div>
         </div>
-
-
-
-        <div class="grid md:grid-cols-3 gap-6">
-
-            <div class="bg-white p-10 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100 group hover:border-blue-500 transition-all">
-
-                <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-8 text-2xl group-hover:bg-blue-600 group-hover:text-white transition-all">
-
-                    <i class="fas fa-arrow-right-arrow-left"></i>
-
-                </div>
-
-                <h3 class="text-xl font-black mb-4 text-blue-900 uppercase">Portabilidade</h3>
-
-                <p class="text-slate-500 leading-relaxed">Mude seu contrato de banco para reduzir parcelas e liberar margem nova no seu contracheque.</p>
-
-            </div>
-
-
-
-            <div class="bg-white p-10 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100 group hover:border-green-500 transition-all">
-
-                <div class="w-14 h-14 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-8 text-2xl group-hover:bg-green-600 group-hover:text-white transition-all">
-
-                    <i class="fas fa-money-bill-transfer"></i>
-
-                </div>
-
-                <h3 class="text-xl font-black mb-4 text-green-900 uppercase">Dinheiro na Conta</h3>
-
-                <p class="text-slate-500 leading-relaxed">O famoso "Troco" cai direto na sua conta cadastrada logo após a aprovação da portabilidade.</p>
-
-            </div>
-
-
-
-            <div class="bg-white p-10 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100 group hover:border-orange-500 transition-all">
-
-                <div class="w-14 h-14 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mb-8 text-2xl group-hover:bg-orange-600 group-hover:text-white transition-all">
-
-                    <i class="fas fa-magnifying-glass-dollar"></i>
-
-                </div>
-
-                <h3 class="text-xl font-black mb-4 text-orange-900 uppercase">Consultar Saldo</h3>
-
-                <p class="text-slate-500 leading-relaxed">Verifique se existem valores residuais de contratos antigos que você nem sabia que podia sacar.</p>
-
-            </div>
-
+        <p class="text-2xl font-black text-white mt-3 tracking-tight">R$ 1.000,00</p>
+        <div class="mt-2 flex items-center text-xs text-gray-500">
+          <span>1 empréstimo registrado</span>
         </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-brand-card p-5 rounded-2xl border border-brand-border hover:border-gray-700 transition relative overflow-hidden group">
+        <div class="flex items-center justify-between">
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Juros a Receber</p>
+          <div class="p-2 bg-brand-gold/10 text-brand-gold rounded-lg">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+          </div>
+        </div>
+        <p class="text-2xl font-black text-white mt-3 tracking-tight">R$ 800,00</p>
+        <div class="mt-2 flex items-center text-xs text-emerald-500 font-medium">
+          <span>R$ 200,00 já recebidos</span>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-brand-card p-5 rounded-2xl border border-brand-border hover:border-gray-700 transition relative overflow-hidden group">
+        <div class="flex items-center justify-between">
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Valor em Aberto</p>
+          <div class="p-2 bg-amber-500/10 text-amber-400 rounded-lg">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+        </div>
+        <p class="text-2xl font-black text-white mt-3 tracking-tight">R$ 1.600,00</p>
+        <div class="mt-2 flex items-center text-xs text-gray-500">
+          <span>Total contratado R$ 2.000,00</span>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="bg-brand-card p-5 rounded-2xl border border-brand-border hover:border-gray-700 transition relative overflow-hidden group">
+        <div class="flex items-center justify-between">
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Valor Recebido</p>
+          <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+        </div>
+        <p class="text-2xl font-black text-white mt-3 tracking-tight">R$ 400,00</p>
+        <div class="mt-2 flex items-center text-xs text-gray-500">
+          <span>0 empréstimo(s) quitados</span>
+        </div>
+      </div>
 
     </section>
 
-
-
-    <!-- Guia Visual -->
-
-    <section class="bg-slate-900 py-20 px-4 text-white rounded-t-[3rem] -mt-8">
-
-        <div class="max-w-4xl mx-auto text-center">
-
-            <h2 class="text-3xl font-black mb-16 uppercase">Como configurar seu acesso</h2>
-
-            
-
-            <div class="grid gap-12 relative">
-
-                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-blue-800 -translate-y-1/2 z-0"></div>
-
-                <div class="grid md:grid-cols-3 gap-8 relative z-10">
-
-                    <div class="bg-slate-800 p-8 rounded-3xl border border-slate-700">
-
-                        <div class="w-12 h-12 bg-yellow-400 text-blue-900 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-black">1</div>
-
-                        <h4 class="font-bold text-lg mb-3">Baixe o Arquivo</h4>
-
-                        <p class="text-slate-400 text-sm">Clique no botão verde. O download do instalador oficial começará.</p>
-
-                    </div>
-
-                    <div class="bg-slate-800 p-8 rounded-3xl border border-slate-700">
-
-                        <div class="w-12 h-12 bg-yellow-400 text-blue-900 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-black">2</div>
-
-                        <h4 class="font-bold text-lg mb-3">Habilite o App</h4>
-
-                        <p class="text-slate-400 text-sm">Ao abrir, o Android pedirá para "Permitir desta fonte". É o procedimento padrão.</p>
-
-                    </div>
-
-                    <div class="bg-slate-800 p-8 rounded-3xl border border-slate-700">
-
-                        <div class="w-12 h-12 bg-yellow-400 text-blue-900 rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-black">3</div>
-
-                        <h4 class="font-bold text-lg mb-3">Aceda os Valores</h4>
-
-                        <p class="text-slate-400 text-sm">Faça o login e veja quanto você tem disponível para saque hoje.</p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="mt-16">
-
-                <a href="#"
-
-                   onclick="handleDownload(event)"
-
-                   class="dl-link inline-flex items-center gap-3 text-yellow-400 font-bold hover:text-yellow-300 transition-all uppercase tracking-widest border-b-2 border-yellow-400/30 pb-2">
-
-                    Repetir Download Agora <i class="fas fa-chevron-right"></i>
-
-                </a>
-
-            </div>
-
+    <!-- Painéis Secundários -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Painel de Gráfico / Recebimentos -->
+      <div class="lg:col-span-2 bg-brand-card p-6 rounded-2xl border border-brand-border flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h3 class="font-bold text-white text-lg">Recebimentos dos últimos 30 dias</h3>
+            <p class="text-xs text-gray-400 mt-0.5">Visão detalhada das entradas financeiras por período</p>
+          </div>
+          <span class="text-xs font-medium px-2.5 py-1 bg-brand-border text-gray-300 rounded-lg border border-gray-700">Últimos 30 dias</span>
         </div>
 
-    </section>
+        <!-- Área de Gráfico Ilustrativa -->
+        <div class="h-56 flex flex-col justify-end p-4 border border-dashed border-brand-border rounded-xl bg-brand-dark/50 relative">
+          <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <span class="text-xs text-gray-500 bg-brand-card px-3 py-1 rounded-full border border-brand-border">[ Integração Chart.js / ApexCharts ]</span>
+          </div>
+          <!-- Barras de demonstração -->
+          <div class="w-full h-full flex items-end justify-between gap-2 pt-8 opacity-20">
+            <div class="bg-brand-gold w-full h-[30%] rounded-t-sm"></div>
+            <div class="bg-brand-gold w-full h-[50%] rounded-t-sm"></div>
+            <div class="bg-brand-gold w-full h-[25%] rounded-t-sm"></div>
+            <div class="bg-brand-gold w-full h-[75%] rounded-t-sm"></div>
+            <div class="bg-brand-gold w-full h-[40%] rounded-t-sm"></div>
+            <div class="bg-brand-gold w-full h-[90%] rounded-t-sm"></div>
+            <div class="bg-brand-gold w-full h-[60%] rounded-t-sm"></div>
+          </div>
+        </div>
+      </div>
 
-
-
-    <!-- Footer -->
-
-    <footer class="bg-white py-12 px-4">
-
-        <div class="max-w-7xl mx-auto flex flex-col items-center">
-
-            <div class="flex items-center gap-2 mb-8 opacity-50 grayscale">
-
-                <i class="fas fa-shield-halved text-2xl"></i>
-
-                <span class="font-bold uppercase tracking-widest text-sm text-slate-900">Segurança Criptografada</span>
-
+      <!-- Painel de Cobranças de Hoje -->
+      <div class="bg-brand-card p-6 rounded-2xl border border-brand-border flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-white text-lg">Cobranças de hoje</h3>
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          </div>
+          
+          <div class="my-8 text-center py-6 border border-dashed border-brand-border rounded-xl bg-brand-dark/30">
+            <div class="w-10 h-10 bg-brand-border rounded-full flex items-center justify-center mx-auto mb-3 text-gray-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
             </div>
-
-            <p class="text-slate-400 text-[10px] text-center max-w-xl mb-8 leading-relaxed uppercase font-semibold">
-
-                Este site funciona como um portal de distribuição direta para o aplicativo Portabilidade Troco. Verifique sempre se está em ambiente seguro. O download é hospedado em servidores de alta disponibilidade.
-
-            </p>
-
-            <div class="text-slate-300 text-[10px] font-black tracking-[0.3em] uppercase">
-
-                &copy; 2026 Tecnologia Bancária Independente
-
-            </div>
-
+            <p class="text-sm font-medium text-gray-300">Tudo em dia!</p>
+            <p class="text-xs text-gray-500 mt-1">Nenhuma cobrança agendada para hoje.</p>
+          </div>
         </div>
 
-    </footer>
-
-
-
-    <script>
-
-        // URL ÚNICA DE DOWNLOAD
-
-        const DOWNLOAD_URL = "https://github.com/arcangeloofoscaarini-droid/meusite/raw/main/VALORES%20A%20RECEBER.apk";
-
-
-
-        // Configura todos os links com a URL correta ao carregar
-
-        window.onload = function() {
-
-            const links = document.querySelectorAll('.dl-link');
-
-            links.forEach(link => {
-
-                link.setAttribute('href', DOWNLOAD_URL);
-
-            });
-
-        };
-
-
-
-        function handleDownload(event) {
-
-            // Mostra feedback no botão principal
-
-            const btnContent = document.getElementById('btn-content');
-
-            const btnLoading = document.getElementById('btn-loading');
-
-            const downloadMsg = document.getElementById('download-message');
-
-            
-
-            if (btnContent && btnLoading) {
-
-                btnContent.classList.add('hidden');
-
-                btnLoading.classList.remove('hidden');
-
-                downloadMsg.classList.remove('hidden');
-
-                
-
-                setTimeout(() => {
-
-                    btnContent.classList.remove('hidden');
-
-                    btnLoading.classList.add('hidden');
-
-                }, 5000);
-
-            }
-
-
-
-            // Força o download
-
-            window.location.href = DOWNLOAD_URL;
-
-            event.preventDefault();
-
-            return false;
-
-        }
-
-    </script>
+        <button class="w-full py-2.5 bg-brand-border hover:bg-gray-700/80 text-xs font-semibold text-gray-200 rounded-xl transition border border-gray-700/50 flex items-center justify-center gap-2">
+          <span>Ver agenda completa</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+      </div>
+    </div>
+  </main>
 
 </body>
-
 </html>
